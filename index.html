@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>PhraseNet Explorer</title>
+</head>
+
+<body>
+    <header>
+        <h1>PhraseNet Explorer</h1>
+    </header>
+
+    <main>
+        <aside class="control-panel">
+            
+            <!-- Pattern field -->
+            <label for="pattern">Pattern</label>
+            <input id="pattern" list="pattern-options" placeholder="Type or select…" />
+            <datalist id="pattern-options">
+                <option value="x and y"></option>
+                <option value="x of the y"></option>
+                <option value="x the y"></option>
+                <option value="x's y"></option>
+                <option value="x a y"></option>
+                <option value="x at y"></option>
+                <option value="x is y"></option>
+                <option value="x [space] y"></option>
+            </datalist>
+
+            <!-- Stopwords -->
+            <label for="stopword-input">Add stopword</label>
+            <div class="stopword-entry">
+                <input id="stopword-input" placeholder="Type stopword…" />
+                <button id="add-stopword">Add</button>
+            </div>
+
+            <ul id="stopword-list" class="stopword-list"></ul>
+
+            <!-- Max nodes -->
+            <label for="max-nodes">Max nodes</label>
+            <input id="max-nodes" type="number" value="20" min="1" />
+
+            <!-- Text area -->
+            <label for="input-text">Text to analyze</label>
+            <textarea id="input-text" rows="8" placeholder="Paste your text here…"></textarea>
+
+            <!-- Generate button -->
+            <button id="generate">Generate Network</button>
+
+            <!-- Error -->
+            <p id="error-msg" class="error-msg"></p>
+        </aside>
+	<!-- add inside <body> next to #graph-placeholder -->
+	<div id="tooltip" class="pn-tooltip" style="position:absolute; pointer-events:none; opacity:0;"></div>
+
+        <section class="graph-area">
+            <div id="graph-placeholder">Network visualization appears here</div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <p>© 2025 PhraseNet Explorer Prototype</p>
+            <a href="https://github.com/FlaviaLopes/phrasenet.github.io">Repositório</a>
+        </div>
+
+        <div class="footer-right">
+            <p>Autora</p>
+            <div class="socials">
+                <a href="https://linkedin.com/in/lopesflavia">LinkedIn</a>
+                <a href="https://github.com/FlaviaLopes">GitHub</a>
+            </div>
+            <div class="logos">
+                <div>PPGT</div>
+                <div>FT</div>
+                <div>Unicamp</div>
+            </div>
+        </div>
+    </footer>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
+
