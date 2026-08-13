@@ -186,7 +186,10 @@ const stopwordInput = document.getElementById("stopword-input");
 const stopwordList = document.getElementById("stopword-list");
 const addStopwordBtn = document.getElementById("add-stopword");
 const generateBtn = document.getElementById("generate");
+const useExampleBtn = document.getElementById("use-example-text");
 const errorMsg = document.getElementById("error-msg");
+
+const EXAMPLE_TEXT = `The city is full of movement and noise. People work, travel, and meet each other in crowded spaces. The family brings calm, care, and routine. In everyday life, work and home are both important. The city teaches speed, while the family teaches patience. Together they shape the rhythm of life and the way people think and act.`;
 
 let stopwords = [];
 let lastGraphData = null;
@@ -273,6 +276,15 @@ addStopwordBtn.addEventListener("click", () => {
     stopwordInput.value = "";
     updateStopwordButtonState();
 });
+
+if (useExampleBtn) {
+    useExampleBtn.addEventListener("click", () => {
+        inputText.value = EXAMPLE_TEXT;
+        errorMsg.textContent = "";
+        updateAnalyzeButtonState();
+        inputText.focus();
+    });
+}
 
 stopwordInput.addEventListener("input", updateStopwordButtonState);
 stopwordInput.addEventListener("keydown", (event) => {

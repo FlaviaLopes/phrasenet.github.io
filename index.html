@@ -42,7 +42,10 @@
             <label for="max-nodes">Max nodes</label>
             <input id="max-nodes" type="number" value="20" min="1" />
 
-            <label for="input-text">Text to analyze</label>
+            <div class="text-header">
+                <label for="input-text">Text to analyze</label>
+                <button id="use-example-text" class="secondary-button" type="button">Use example text</button>
+            </div>
             <textarea id="input-text" rows="8" placeholder="Paste your text here…"></textarea>
 
             <button id="generate" class="primary-button" type="button" aria-label="Analyze text and generate network">

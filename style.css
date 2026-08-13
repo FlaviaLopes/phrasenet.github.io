@@ -73,6 +73,30 @@ header h1 {
     color: var(--muted);
 }
 
+.text-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.secondary-button {
+    width: auto;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid #bfd0fb;
+    border-radius: 10px;
+    background: #edf4ff;
+    color: var(--primary-dark);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.secondary-button:hover {
+    background: #e2edff;
+    transform: translateY(-1px);
+}
+
 .control-panel input,
 .control-panel textarea,
 .control-panel select,
