@@ -325,6 +325,7 @@ generateBtn.addEventListener("click", () => {
     };
 
     const graphData = prepareGraphData(params);
+    setWorkspaceVisible(true);
     renderGraph(graphData);
 });
 
@@ -361,10 +362,6 @@ function prepareGraphData({ pattern, stopwords, maxNodes, text }) {
     const result = phraseNet.run(text, pattern, stopwords, maxNodes);
     return result;
 }
-
-// --------------------------
-// GRAPH RENDERING (D3)
-// --------------------------
 
 // --------------------------
 // GRAPH RENDERING (D3)
@@ -738,4 +735,5 @@ function renderGraph({ nodes, edges }) {
             return `M ${sx},${sy} Q ${cx},${cy} ${txAdj},${tyAdj}`;
         });
     });
-}
+}
+
