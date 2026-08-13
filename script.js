@@ -582,41 +582,48 @@ function renderGraph({ nodes, edges }) {
     // ---------------------------------------------------
     let activeNode = null; // Para rastrear o nó atualmente clicado
 
+    function clearNodeSelection() {
+        activeNode = null;
+        if (typeof link !== "undefined") {
+            link.attr("opacity", 0.95)
+                .attr("stroke", "#cccccc");
+        }
+        if (typeof label !== "undefined") {
+            label.attr("opacity", 1.0);
+        }
+        clearNodeDetails();
+    }
+
     function highlightGraph(d) {
         if (activeNode && activeNode.id === d.id) {
-            // Se clicou no mesmo nó, desliga o destaque
-            activeNode = null;
-        } else {
-            // Liga o destaque
-            activeNode = d;
+            clearNodeSelection();
+            return;
         }
 
-        // --- Aplicar estilos ---
-        
-        // Arestas: Reduzir opacidade de tudo
-        link.attr("opacity", activeNode ? 0.1 : 0.95)
-            .attr("stroke", "#cccccc"); // Reset cor
-        
-        // Arestas: Destacar arestas conectadas
-        link.filter(e => activeNode && (e.source.id === activeNode.id || e.target.id === activeNode.id))
-            .attr("opacity", 0.8)
-            .attr("stroke", "#444444"); // Cor de destaque para arestas
+        activeNode = d;
 
-        // Nós (Labels): Reduzir opacidade de tudo
-        label.attr("opacity", activeNode ? 0.2 : 1.0);
-        
-        // Nós (Labels): Destacar nó clicado e vizinhos
+        // --- Aplicar estilos ---
+        link.attr("opacity", 0.1)
+            .attr("stroke", "#cccccc");
+
+        link.filter(e => e.source.id === activeNode.id || e.target.id === activeNode.id)
+            .attr("opacity", 0.8)
+            .attr("stroke", "#444444");
+
+        label.attr("opacity", 0.2);
         label.filter(n => {
-            if (!activeNode) return true; // Mostrar todos se reset
-            
-            // É o nó clicado OU está na lista de vizinhos (de primeiro grau)
             const isNeighbor = (neighbors[activeNode.id] && neighbors[activeNode.id].includes(n.id));
             return (n.id === activeNode.id || isNeighbor);
-
         }).attr("opacity", 1.0);
     }
     // ---------------------------------------------------
-        
+
+    container.on("click", (event) => {
+        if (event.target === container.node() || event.target === svg.node()) {
+            clearNodeSelection();
+        }
+    });
+
     // create curved link paths
     const link = svg.append("g").attr("class","links")
         .selectAll("path")
@@ -662,6 +669,11 @@ function renderGraph({ nodes, edges }) {
         )
         // NOVO: Evento de clique para destaque
         .on("click", (ev, d) => {
+            ev.stopPropagation();
+            if (activeNode && activeNode.id === d.id) {
+                clearNodeSelection();
+                return;
+            }
             highlightGraph(d);
             updateNodeDetails(d);
         });
